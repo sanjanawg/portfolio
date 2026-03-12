@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sanjana WG — Product Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Caveat+Brush&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Reenie+Beanie&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #faf6ef;
+    --paper2: #f5f0e8;
+    --ink: #1a1209;
+    --ink2: #2d2416;
+    --blue: #2563c4;
+    --red: #c42525;
+    --green: #1a7a3e;
+    --yellow: #e8b800;
+    --orange: #d4601a;
+    --purple: #6b2fb3;
+    --pink: #d4266a;
+    --rule: rgba(100,80,50,0.15);
+    --shadow: rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #d4c9b0;
+    font-family: 'Kalam', cursive;
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='5' cy='15' r='3' fill='%231a1209'/%3E%3Cline x1='5' y1='12' x2='12' y2='2' stroke='%231a1209' stroke-width='1.5'/%3E%3C/svg%3E") 5 15, auto;
+  }
+
+  /* ── NOTEBOOK LINES MIXIN ─────────────────────────── */
+  .lined {
+    background-image: 
+      repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        var(--rule) 31px,
+        var(--rule) 32px
+      );
+    background-size: 100% 32px;
+  }
+
+  /* ── SPIRAL / BINDING ────────────────────────────── */
+  .page {
+    position: relative;
+    background: var(--paper);
+    margin: 0 auto;
+    padding-left: 80px;
+    padding-right: 40px;
+    box-shadow: 4px 4px 20px var(--shadow), -2px 0 10px rgba(0,0,0,0.05);
+  }
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 64px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: rgba(196,37,37,0.35);
+    z-index: 2;
+  }
+
+  /* ── SPIRAL HOLES ────────────────────────────────── */
+  .spirals {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 52px;
+    z-index: 100;
+    background: #b8ae99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    gap: 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  }
+  .spiral-coil {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #7a7060;
+    border-radius: 50%;
+    background: #d4c9b0;
+    margin: 10px 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 1px 3px rgba(255,255,255,0.4);
+    position: relative;
+  }
+  .spiral-coil::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -6px; right: -6px;
+    height: 3px;
+    background: #7a7060;
+    transform: translateY(-50%);
+    z-index: -1;
+  }
+
+  /* ── MAIN WRAPPER ────────────────────────────────── */
+  .notebook {
+    margin-left: 52px;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ─────────────────────────────────────────── */
+  nav {
+    background: var(--paper2);
+    border-bottom: 2px dashed rgba(100,80,50,0.25);
+    padding: 16px 40px 16px 90px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  nav .logo {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.5rem;
+    color: var(--blue);
+    margin-right: auto;
+    text-decoration: none;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+  nav a:not(.logo) {
+    font-family: 'Kalam', cursive;
+    font-size: 1rem;
+    color: var(--ink2);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+  }
+  nav a:not(.logo):hover {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+    transform: rotate(-0.5deg);
+  }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 60px 60px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero.lined {
+    background-image: 
+      repeating-linear-gradient(transparent, transparent 31px, var(--rule) 31px, var(--rule) 32px),
+      radial-gradient(ellipse at 70% 50%, rgba(37,99,196,0.04) 0%, transparent 70%);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--red);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 12px;
+    background: rgba(196,37,37,0.08);
+    padding: 4px 14px;
+    border: 1px dashed var(--red);
+    border-radius: 4px;
+  }
+
+  .hero-name {
+    font-family: 'Caveat Brush', cursive;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero-name span {
+    color: var(--blue);
+    position: relative;
+    display: inline-block;
+  }
+  .hero-name span::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0; right: 0;
+    height: 6px;
+    background: var(--yellow);
+    opacity: 0.5;
+    z-index: -1;
+    transform: rotate(-0.5deg) skewX(-3deg);
+  }
+
+  .hero-subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: var(--ink2);
+    margin-bottom: 24px;
+    transform: rotate(-0.5deg);
+    display: inline-block;
+  }
+
+  .hero-bio {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--ink2);
+    max-width: 620px;
+    margin-bottom: 36px;
+    font-family: 'Patrick Hand', cursive;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: 'Kalam', cursive;
+    font-size: 1rem;
+    padding: 10px 26px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    transform: rotate(-0.5deg);
+    box-shadow: 3px 3px 0 var(--blue);
+  }
+  .btn-primary:hover {
+    transform: rotate(0.5deg) translateY(-2px);
+    box-shadow: 5px 5px 0 var(--blue);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    transform: rotate(0.5deg);
+    box-shadow: 3px 3px 0 var(--yellow);
+  }
+  .btn-ghost:hover {
+    transform: rotate(-0.5deg) translateY(-2px);
+    box-shadow: 5px 5px 0 var(--yellow);
+  }
+
+  /* Doodles */
+  .doodle {
+    position: absolute;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .arrow-doodle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--ink);
+    position: absolute;
+    transform: rotate(12deg);
+    opacity: 0.4;
+  }
+
+  /* ── SECTION TITLE ───────────────────────────────── */
+  .section-head {
+    padding: 60px 60px 0 20px;
+    position: relative;
+  }
+  .section-label {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 1rem;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+  .section-title {
+    font-family: 'Caveat Brush', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--ink);
+    line-height: 1.1;
+    position: relative;
+    display: inline-block;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: currentColor;
+    opacity: 0.2;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
+  }
+  .section-title.visible::after { transform: scaleX(1); }
+  .underline-blue::after { background: var(--blue); opacity: 0.6; }
+  .underline-green::after { background: var(--green); opacity: 0.6; }
+  .underline-purple::after { background: var(--purple); opacity: 0.6; }
+
+  /* ── EXPERIENCE CARDS ────────────────────────────── */
+  #experience {
+    padding: 20px 60px 60px 20px;
+  }
+  .exp-timeline {
+    position: relative;
+    margin-top: 40px;
+  }
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--ink2) 0px, var(--ink2) 6px,
+      transparent 6px, transparent 10px
+    );
+    opacity: 0.3;
+  }
+
+  .exp-card {
+    margin-left: 40px;
+    margin-bottom: 44px;
+    position: relative;
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    border-radius: 2px;
+    padding: 28px 28px 24px;
+    box-shadow: 4px 4px 0 rgba(100,80,50,0.1), 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  .exp-card.visible {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s, box-shadow 0.2s;
+  }
+  .exp-card:hover {
+    transform: rotate(-0.3deg) translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(100,80,50,0.15), 0 6px 20px rgba(0,0,0,0.1);
+  }
+
+  .exp-card::before {
+    content: '●';
+    position: absolute;
+    left: -36px;
+    top: 28px;
+    font-size: 1.2rem;
+    color: var(--blue);
+  }
+
+  .exp-dot {
+    position: absolute;
+    left: -35px;
+    top: 28px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--ink2);
+    background: var(--paper);
+  }
+
+  .exp-role {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .exp-company {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--blue);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .exp-date {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .exp-date::before {
+    content: '📅';
+    font-size: 0.8rem;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .exp-bullets li {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.97rem;
+    line-height: 1.6;
+    color: var(--ink2);
+    padding-left: 20px;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-family: 'Caveat', cursive;
+  }
+
+  .exp-tag {
+    display: inline-block;
+    font-family: 'Kalam', cursive;
+    font-size: 0.78rem;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin: 12px 4px 0 0;
+    border: 1.5px solid;
+  }
+  .tag-blue { color: var(--blue); border-color: var(--blue); background: rgba(37,99,196,0.06); }
+  .tag-green { color: var(--green); border-color: var(--green); background: rgba(26,122,62,0.06); }
+  .tag-red { color: var(--red); border-color: var(--red); background: rgba(196,37,37,0.06); }
+  .tag-orange { color: var(--orange); border-color: var(--orange); background: rgba(212,96,26,0.06); }
+  .tag-purple { color: var(--purple); border-color: var(--purple); background: rgba(107,47,179,0.06); }
+
+  /* ── SKILLS ─────────────────────────────────────── */
+  #skills {
+    padding: 20px 60px 60px 20px;
+    background: var(--paper2);
+  }
+  #skills.lined {
+    background-image:
+      repeating-linear-gradient(transparent, transparent 31px, var(--rule) 31px, var(--rule) 32px),
+      linear-gradient(var(--paper2), var(--paper2));
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .skill-cluster {
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    padding: 24px;
+    border-radius: 2px;
+    box-shadow: 3px 3px 0 rgba(100,80,50,0.08);
+    position: relative;
+    transition: transform 0.2s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .skill-cluster.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .skill-cluster:hover { transform: rotate(0.4deg) translateY(-3px); }
+  .skill-cluster-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  .skill-cluster-name {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .skill-pill {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.82rem;
+    padding: 3px 10px;
+    background: var(--paper);
+    border: 1px solid rgba(100,80,50,0.25);
+    border-radius: 20px;
+    color: var(--ink2);
+  }
+
+  /* Tape effect */
+  .tape {
+    position: absolute;
+    width: 60px;
+    height: 22px;
+    background: rgba(232,184,0,0.35);
+    border-radius: 2px;
+    transform: rotate(-3deg);
+  }
+  .tape-tl { top: -11px; left: 20px; }
+  .tape-tr { top: -11px; right: 20px; transform: rotate(3deg); }
+
+  /* ── METRICS / IMPACT ────────────────────────────── */
+  #impact {
+    padding: 60px 60px 60px 20px;
+  }
+  .metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .metric-card {
+    flex: 1;
+    min-width: 160px;
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.18);
+    padding: 28px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 4px 4px 0 rgba(100,80,50,0.1);
+    transition: transform 0.2s;
+    opacity: 0;
+    transform: translateY(15px) rotate(-1deg);
+  }
+  .metric-card.visible {
+    opacity: 1;
+    transform: translateY(0) rotate(-0.5deg);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .metric-card:nth-child(even) { transform: rotate(0.5deg); }
+  .metric-card:nth-child(even).visible { transform: translateY(0) rotate(0.5deg); }
+  .metric-card:hover { transform: translateY(-5px) rotate(0deg) scale(1.02); box-shadow: 8px 8px 0 rgba(100,80,50,0.15); }
+  .metric-num {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-label {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  /* ── PROJECTS / FEATURES ─────────────────────────── */
+  #projects {
+    padding: 60px 60px 60px 20px;
+    background: var(--paper2);
+  }
+  #projects.lined {
+    background-image:
+      repeating-linear-gradient(transparent, transparent 31px, var(--rule) 31px, var(--rule) 32px),
+      linear-gradient(var(--paper2), var(--paper2));
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .project-card {
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    padding: 28px;
+    position: relative;
+    box-shadow: 5px 5px 0 rgba(100,80,50,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .project-card:hover {
+    transform: rotate(-0.5deg) translateY(-5px);
+    box-shadow: 8px 8px 0 rgba(100,80,50,0.15);
+  }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .project-card.col-blue::after { background: var(--blue); }
+  .project-card.col-green::after { background: var(--green); }
+  .project-card.col-red::after { background: var(--red); }
+  .project-card.col-orange::after { background: var(--orange); }
+  .project-card.col-purple::after { background: var(--purple); }
+
+  .project-emoji { font-size: 2rem; margin-bottom: 12px; }
+  .project-title {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .project-company {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .project-desc {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--ink2);
+    margin-bottom: 16px;
+  }
+  .project-outcome {
+    font-family: 'Kalam', cursive;
+    font-size: 0.88rem;
+    padding: 8px 14px;
+    background: var(--paper);
+    border-left: 3px solid var(--blue);
+    color: var(--ink2);
+    font-style: italic;
+  }
+
+  /* ── TOOLBOX ─────────────────────────────────────── */
+  #tools {
+    padding: 60px 60px 60px 20px;
+  }
+  .tools-scatter {
+    position: relative;
+    min-height: 320px;
+    margin-top: 40px;
+  }
+  .tool-bubble {
+    position: absolute;
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0 rgba(100,80,50,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  .tool-bubble.visible {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .tool-bubble:hover {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 5px 5px 0 rgba(100,80,50,0.15);
+    z-index: 10;
+  }
+  .tool-icon { font-size: 1.4rem; }
+  .tool-name { font-family: 'Patrick Hand', cursive; font-size: 0.7rem; text-align: center; }
+
+  /* ── EDUCATION & ACHIEVEMENTS ────────────────────── */
+  #education {
+    padding: 60px 60px 60px 20px;
+    background: var(--paper2);
+  }
+  #education.lined {
+    background-image:
+      repeating-linear-gradient(transparent, transparent 31px, var(--rule) 31px, var(--rule) 32px),
+      linear-gradient(var(--paper2), var(--paper2));
+  }
+
+  .edu-card {
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    padding: 32px;
+    max-width: 600px;
+    margin-top: 32px;
+    box-shadow: 5px 5px 0 rgba(100,80,50,0.1);
+    position: relative;
+    transform: rotate(-0.3deg);
+    opacity: 0;
+  }
+  .edu-card.visible {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  .edu-school {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  .edu-degree {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .edu-meta {
+    display: flex;
+    gap: 20px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  .edu-cgpa {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 2.5rem;
+    color: var(--green);
+    margin-top: 12px;
+  }
+
+  .achievements-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .achievement {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.18);
+    padding: 20px 24px;
+    box-shadow: 3px 3px 0 rgba(100,80,50,0.08);
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  .achievement.visible {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .achievement-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .achievement-text {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.97rem;
+    line-height: 1.6;
+    color: var(--ink2);
+  }
+  .achievement-text strong {
+    font-family: 'Kalam', cursive;
+    color: var(--ink);
+  }
+
+  /* ── CONTACT ─────────────────────────────────────── */
+  #contact {
+    padding: 60px 60px 80px 20px;
+  }
+  .contact-inner {
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    padding: 48px;
+    max-width: 700px;
+    box-shadow: 6px 6px 0 rgba(100,80,50,0.12);
+    position: relative;
+  }
+  .contact-inner::before {
+    content: '✦ let\'s build something great ✦';
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 0.9rem;
+    color: #aaa;
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 0 12px;
+    white-space: nowrap;
+  }
+  .contact-quote {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 2rem;
+    color: var(--ink);
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .contact-link {
+    font-family: 'Kalam', cursive;
+    font-size: 1rem;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 2px solid var(--ink);
+    transition: all 0.2s;
+    position: relative;
+  }
+  .contact-link:hover {
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--yellow);
+  }
+
+  /* ── STICKY NOTE ASIDE ───────────────────────────── */
+  .sticky-note {
+    position: absolute;
+    background: #fef9c3;
+    padding: 16px 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+    font-family: 'Kalam', cursive;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    max-width: 180px;
+    z-index: 5;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 28px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+  }
+  footer span { color: var(--yellow); }
+
+  /* ── ANIMATIONS ──────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes writeIn {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0% 0 0); }
+  }
+  @keyframes wobble {
+    0%,100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+  }
+  @keyframes floatUp {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes scribble {
+    0% { stroke-dashoffset: 1000; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  .anim-fade-up { animation: fadeUp 0.8s ease both; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+  .delay-5 { animation-delay: 0.75s; }
+
+  .float { animation: floatUp 4s ease-in-out infinite; }
+
+  /* SVG scribble underline */
+  .scribble-svg {
+    display: block;
+    overflow: visible;
+  }
+  .scribble-path {
+    stroke: var(--blue);
+    stroke-width: 3;
+    fill: none;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    stroke-linecap: round;
+  }
+  .scribble-path.drawn {
+    animation: scribble 1.2s ease forwards;
+  }
+
+  /* ── BLOG SECTION ────────────────────────────────── */
+  #blog { padding: 60px 60px 60px 20px; }
+
+  .blog-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 24px 0 32px;
+  }
+  .blog-filter-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 0.9rem;
+    padding: 6px 18px;
+    border: 2px solid rgba(100,80,50,0.3);
+    background: white;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.2s;
+    color: var(--ink2);
+  }
+  .blog-filter-btn:hover, .blog-filter-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+  }
+
+  .blog-card {
+    background: white;
+    border: 1.5px solid rgba(100,80,50,0.2);
+    padding: 0;
+    box-shadow: 4px 4px 0 rgba(100,80,50,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .blog-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s, box-shadow 0.2s;
+  }
+  .blog-card:hover {
+    transform: rotate(-0.4deg) translateY(-4px);
+    box-shadow: 7px 7px 0 rgba(100,80,50,0.15);
+  }
+  .blog-card-thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: var(--paper2);
+  }
+  .blog-card-thumb-placeholder {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--paper2) 0%, #e8e0d0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .blog-card-video-thumb {
+    width: 100%;
+    height: 180px;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-card-video-thumb iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+  .play-overlay {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    pointer-events: none;
+  }
+  .blog-card-body { padding: 20px 22px 20px; }
+  .blog-card-type {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .type-blog { color: var(--blue); }
+  .type-video { color: var(--red); }
+  .type-case-study { color: var(--purple); }
+  .blog-card-title {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .blog-card-excerpt {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .blog-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.8rem;
+    color: #999;
+  }
+  .blog-card-delete {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: rgba(196,37,37,0.85);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 26px; height: 26px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  .blog-card:hover .blog-card-delete { display: flex; }
+
+  .blog-empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: #aaa;
+  }
+  .blog-empty span { display: block; font-size: 3rem; margin-bottom: 12px; }
+
+  /* ── BLOG MODAL (read full post) ─────────────────── */
+  .blog-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,18,9,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .blog-modal-overlay.open { display: flex; }
+  .blog-modal {
+    background: var(--paper);
+    max-width: 760px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 0;
+    box-shadow: 8px 8px 0 rgba(100,80,50,0.2), 0 20px 60px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  .blog-modal-header {
+    padding: 36px 40px 20px;
+    border-bottom: 1px dashed rgba(100,80,50,0.25);
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 5;
+  }
+  .blog-modal-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: none;
+    border: 2px solid var(--ink);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: 'Caveat', cursive;
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .blog-modal-close:hover { background: var(--ink); color: var(--paper); }
+  .blog-modal-type { font-family: 'Reenie Beanie', cursive; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .blog-modal-title { font-family: 'Caveat Brush', cursive; font-size: 2rem; color: var(--ink); line-height: 1.2; }
+  .blog-modal-meta { font-family: 'Patrick Hand', cursive; font-size: 0.85rem; color: #888; margin-top: 8px; }
+  .blog-modal-body { padding: 28px 40px 40px; }
+  .blog-modal-img { width: 100%; max-height: 340px; object-fit: cover; margin-bottom: 24px; }
+  .blog-modal-video { width: 100%; aspect-ratio: 16/9; margin-bottom: 24px; border: none; }
+  .blog-modal-content {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--ink2);
+    white-space: pre-wrap;
+  }
+
+  /* ── ADMIN PANEL ─────────────────────────────────── */
+  .admin-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,18,9,0.75);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .admin-overlay.open { display: flex; }
+  .admin-panel {
+    background: var(--paper);
+    max-width: 580px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 36px 40px 40px;
+    box-shadow: 8px 8px 0 rgba(100,80,50,0.2), 0 20px 60px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  .admin-panel h3 {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+  .admin-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: none;
+    border: 2px solid var(--ink);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: 'Caveat', cursive;
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .admin-close:hover { background: var(--ink); color: var(--paper); }
+  .admin-field {
+    margin-bottom: 18px;
+  }
+  .admin-field label {
+    display: block;
+    font-family: 'Kalam', cursive;
+    font-size: 0.9rem;
+    color: var(--ink2);
+    margin-bottom: 6px;
+  }
+  .admin-field input,
+  .admin-field textarea,
+  .admin-field select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid rgba(100,80,50,0.3);
+    background: white;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    border-radius: 2px;
+    transition: border-color 0.2s;
+  }
+  .admin-field input:focus,
+  .admin-field textarea:focus,
+  .admin-field select:focus { border-color: var(--blue); }
+  .admin-field textarea { min-height: 140px; resize: vertical; }
+  .admin-type-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .admin-type-tab {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid rgba(100,80,50,0.25);
+    background: white;
+    cursor: pointer;
+    font-family: 'Kalam', cursive;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 2px;
+    transition: all 0.15s;
+    color: var(--ink2);
+  }
+  .admin-type-tab.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .admin-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    font-family: 'Caveat Brush', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--blue);
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .admin-submit:hover { transform: translateY(-2px); box-shadow: 6px 6px 0 var(--blue); }
+  .admin-hint {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 4px;
+  }
+  .img-preview {
+    width: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    margin-top: 8px;
+    display: none;
+    border: 1px solid rgba(100,80,50,0.2);
+  }
+  .success-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--green);
+    color: white;
+    font-family: 'Kalam', cursive;
+    font-size: 1rem;
+    padding: 14px 24px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    z-index: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .success-toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media (max-width: 768px) {
+    .page { padding-left: 20px; padding-right: 20px; }
+    .page::before { display: none; }
+    #hero, .section-head, #experience, #skills, #impact, #projects, #tools, #education, #blog, #contact {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+    nav { padding-left: 20px; }
+    .spirals { display: none; }
+    .notebook { margin-left: 0; }
+    .tools-scatter { min-height: 500px; }
+    .sticky-note { display: none; }
+    .blog-modal-body, .blog-modal-header { padding-left: 20px; padding-right: 20px; }
+    .admin-panel { padding: 28px 20px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SPIRAL BINDING -->
+<div class="spirals" id="spirals"></div>
+
+<div class="notebook">
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="javascript:void(0)" onclick="goTo('hero')">✏ Sanjana WG</a>
+    <a href="javascript:void(0)" onclick="goTo('experience')">Experience</a>
+    <a href="javascript:void(0)" onclick="goTo('projects')">Projects</a>
+    <a href="javascript:void(0)" onclick="goTo('skills')">Skills</a>
+    <a href="javascript:void(0)" onclick="goTo('impact')">Impact</a>
+    <a href="javascript:void(0)" onclick="goTo('blog')">Blog</a>
+    <a href="javascript:void(0)" onclick="goTo('contact')">Contact</a>
+    <a href="javascript:void(0)" onclick="openAdminPanel(event)" style="margin-left:auto;background:var(--ink);color:var(--paper);padding:6px 14px;border-radius:4px;font-size:0.85rem;">✏️ Add Post</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="page lined">
+
+    <!-- Background doodles -->
+    <svg class="doodle" style="right:5%;top:15%;width:220px;height:180px;" viewBox="0 0 220 180">
+      <circle cx="80" cy="80" r="60" stroke="#2563c4" stroke-width="1.5" fill="none" stroke-dasharray="6 4"/>
+      <line x1="20" y1="160" x2="200" y2="20" stroke="#c42525" stroke-width="1" stroke-dasharray="4 6"/>
+      <rect x="140" y="100" width="60" height="60" stroke="#1a7a3e" stroke-width="1.5" fill="none" transform="rotate(15,170,130)"/>
+    </svg>
+    <svg class="doodle" style="right:2%;bottom:8%;width:160px;height:140px;" viewBox="0 0 160 140">
+      <path d="M10 70 Q40 10 80 70 Q120 130 150 70" stroke="#e8b800" stroke-width="2" fill="none"/>
+      <polygon points="80,10 100,50 60,50" stroke="#d4601a" stroke-width="1.5" fill="none"/>
+    </svg>
+
+    <div class="hero-content">
+      <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px;" class="anim-fade-up">
+        <div style="width:80px;height:80px;border-radius:50%;border:3px solid var(--blue);overflow:hidden;flex-shrink:0;box-shadow:4px 4px 0 var(--yellow);transform:rotate(-2deg);">
+          <img src="images/me.jpeg" style="width:100%;height:100%;object-fit:cover;" alt="Sanjana WG" />
+        </div>
+        <div class="hero-tag" style="margin:0;">👋 hey there, I'm</div>
+      </div>
+
+      <h1 class="hero-name anim-fade-up delay-1">
+        Sanjana <span>WG</span>
+      </h1>
+
+      <!-- SVG scribble underline under name -->
+      <svg class="scribble-svg anim-fade-up delay-2" width="380" height="14" style="margin-top:-10px;margin-bottom:16px;">
+        <path class="scribble-path" id="heroUnderline"
+          d="M0 8 Q60 2 120 8 Q180 14 240 8 Q300 2 380 8"/>
+      </svg>
+
+      <div class="hero-subtitle anim-fade-up delay-2">
+        Product Manager Engineer AI-enthusiast Lifelong learner
+      </div>
+
+      <p class="hero-bio anim-fade-up delay-3">
+        I turn messy clinical workflows and B2B chaos into clean, scalable products. 
+        Currently owning product at <strong>Circle Health</strong>, 
+        and previously shipped 0→1 products at <strong>Joni(canadian femtech company)</strong>. 
+        I write PRDs, run SQL, test APIs, talk to users, 
+        and somehow make it all ship on time.
+      </p>
+
+      <div class="hero-links anim-fade-up delay-4">
+        <a href="mailto:sanjanawoodi123@gmail.com" class="btn btn-primary">📬 say hello</a>
+        <a href="https://www.linkedin.com/in/sanjana-woodi/" target="_blank" rel="noopener" class="btn btn-ghost">💼 LinkedIn</a>
+        <a href="javascript:void(0)" onclick="goTo('projects')" class="btn btn-ghost">📁 my work ↓</a>
+        <a href="javascript:void(0)" onclick="goTo('blog')" class="btn btn-ghost">📝 my blog ↓</a>
+      </div>
+
+      <!-- Sticky note -->
+      <div class="sticky-note float" style="right:60px;top:120px;transform:rotate(4deg);">
+        📌 Open to PM roles in<br>healthtech, B2B SaaS &amp; AI
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- EXPERIENCE -->
+  <div class="section-head page">
+    <div class="section-label">where I've been</div>
+    <h2 class="section-title underline-green" id="expTitle">Work Experience</h2>
+  </div>
+  <section id="experience" class="page lined">
+    <div class="exp-timeline">
+
+      <!-- Circle Health -->
+      <div class="exp-card observe-me">
+        <div class="exp-dot"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#2563c4,#1a4a8a);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🏥</div>
+          <div>
+            <div class="exp-role">Product Management Intern</div>
+            <div class="exp-company">Circle Health, Bengaluru</div>
+          </div>
+        </div>
+        <div class="exp-date">Jan 2026 – Present</div>
+        <ul class="exp-bullets">
+          <li>Led end-to-end teleconsultation feature from problem discovery → production release</li>
+          <li>Interviewed clinicians &amp; care managers; mapped pain points in manual clinical documentation</li>
+          <li>Authored detailed PRDs: user flows, success metrics, edge cases &amp; rollout strategy</li>
+          <li>Built automated Google Meet → AWS S3 transcription pipeline for consultation records</li>
+          <li>Owned QA using Postman; wrote SQL to track transcription adoption &amp; feature usage</li>
+        </ul>
+        <div>
+          <span class="exp-tag tag-blue">PRD Writing</span>
+          <span class="exp-tag tag-green">AWS S3</span>
+          <span class="exp-tag tag-red">Postman / API</span>
+          <span class="exp-tag tag-orange">SQL</span>
+          <span class="exp-tag tag-purple">Healthtech</span>
+        </div>
+      </div>
+
+      <!-- Joni Remote - APL -->
+      <div class="exp-card observe-me">
+        <div class="exp-dot"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#d4601a,#a04010);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🌐</div>
+          <div>
+            <div class="exp-role">Associate Product Lead (Contract)</div>
+            <div class="exp-company">Sheer Simple Labs / Joni Remote</div>
+          </div>
+        </div>
+        <div class="exp-date">Jul 2025 – Dec 2025</div>
+        <ul class="exp-bullets">
+          <li>Led product launch achieving <strong>40% customer engagement</strong> in month 1</li>
+          <li>Built SQL dashboards to track 200+ active users; boosted feature utilization by 25%</li>
+          <li>Built AI-powered automation: dynamic quotation generation &amp; B2B lead scoring</li>
+          <li>Ran 15+ Figma-prototype user feedback sessions to reduce friction</li>
+          <li>18% customer satisfaction improvement via impact-effort analysis &amp; roadmap prioritization</li>
+        </ul>
+        <div>
+          <span class="exp-tag tag-blue">Go-to-Market</span>
+          <span class="exp-tag tag-green">SQL Dashboards</span>
+          <span class="exp-tag tag-orange">AI Automation</span>
+          <span class="exp-tag tag-purple">Figma</span>
+          <span class="exp-tag tag-red">B2B SaaS</span>
+        </div>
+      </div>
+
+      <!-- Joni Remote - Intern -->
+      <div class="exp-card observe-me">
+        <div class="exp-dot"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#d4601a,#a04010);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🌐</div>
+          <div>
+            <div class="exp-role">Product Development Intern</div>
+            <div class="exp-company">Sheer Simple Laboratories inc dba Joni </div>
+          </div>
+        </div>
+        <div class="exp-date">Jan 2025 – Jul 2025</div>
+        <ul class="exp-bullets">
+          <li>Owned product development for a therapeutic wearable system</li>
+          <li>Improved device reliability &amp; cut power consumption by 25%</li>
+          <li>Validated product-market fit across 50+ clinical test cases</li>
+          <li>Reduced dev cycle time by 30% through agile practices</li>
+        </ul>
+        <div>
+          <span class="exp-tag tag-blue">Wearable Tech</span>
+          <span class="exp-tag tag-green">Agile / Scrum</span>
+          <span class="exp-tag tag-orange">PMF Validation</span>
+          <span class="exp-tag tag-red">Clinical Testing</span>
+        </div>
+      </div>
+
+      <!-- Big Foundation -->
+      <div class="exp-card observe-me">
+        <div class="exp-dot"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#1a7a3e,#0f4d27);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🔬</div>
+          <div>
+            <div class="exp-role">Product Development Intern</div>
+            <div class="exp-company">Big Foundation, BMSCE</div>
+          </div>
+        </div>
+        <div class="exp-date">Sep 2024 – Jan 2025</div>
+        <ul class="exp-bullets">
+          <li>Built smart environmental control for neonatal care — defining requirements from clinical needs</li>
+          <li>Improved resource utilisation 30% via dual-core architecture</li>
+          <li>Built real-time monitoring dashboards with InfluxDB &amp; Grafana</li>
+          <li>Automated deployment workflows with shell scripting for pilot scale-up</li>
+        </ul>
+        <div>
+          <span class="exp-tag tag-blue">IoT / Embedded</span>
+          <span class="exp-tag tag-green">Grafana / InfluxDB</span>
+          <span class="exp-tag tag-orange">Neonatal Care</span>
+          <span class="exp-tag tag-purple">Requirements Mgmt</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <div class="section-head page">
+    <div class="section-label">things I've shipped</div>
+    <h2 class="section-title underline-purple" id="projTitle">Featured Work</h2>
+  </div>
+  <section id="projects" class="page lined">
+    <div class="projects-grid">
+
+      <div class="project-card col-blue observe-me">
+        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80&auto=format&fit=crop" style="width:100%;height:160px;object-fit:cover;display:block;" alt="Teleconsultation" />
+        <div style="padding:20px 24px 24px;">
+          <div class="project-title">🩺 Teleconsultation Transcription Pipeline</div>
+          <div class="project-company">Circle Health · 2026</div>
+          <div class="project-desc">End-to-end system that auto-transcribes Google Meet consultations, stores records in AWS S3, and surfaces them on appointment dashboards. Eliminates manual clinical documentation.</div>
+          <div class="project-outcome">✨ Full system workflow: meeting → transcription → storage → UI</div>
+          <div style="margin-top:12px;">
+            <span class="exp-tag tag-blue">AWS S3</span>
+            <span class="exp-tag tag-green">Automation</span>
+            <span class="exp-tag tag-red">PRD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card col-orange observe-me">
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop" style="width:100%;height:160px;object-fit:cover;display:block;" alt="AI Automation" />
+        <div style="padding:20px 24px 24px;">
+          <div class="project-title">🤖 AI-Powered B2B Automation Suite</div>
+          <div class="project-company">Joni Remote · 2025</div>
+          <div class="project-desc">Built AI workflows reducing manual operations by 60–80%, including dynamic quotation generation and a B2B lead scoring system that transformed sales team operations.</div>
+          <div class="project-outcome">✨ 60–80% reduction in manual ops across the business</div>
+          <div style="margin-top:12px;">
+            <span class="exp-tag tag-orange">AI Automation</span>
+            <span class="exp-tag tag-blue">Lead Scoring</span>
+            <span class="exp-tag tag-purple">B2B SaaS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card col-green observe-me">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop" style="width:100%;height:160px;object-fit:cover;display:block;" alt="Analytics Dashboard" />
+        <div style="padding:20px 24px 24px;">
+          <div class="project-title">📊 Product Analytics Dashboard</div>
+          <div class="project-company">Joni Remote · 2025</div>
+          <div class="project-desc">SQL-backed dashboards tracking engagement & behavioural patterns across 200+ active users. Drove feature prioritisation decisions that improved utilisation by 25%.</div>
+          <div class="project-outcome">✨ 25% feature utilization improvement; data-first roadmap</div>
+          <div style="margin-top:12px;">
+            <span class="exp-tag tag-green">SQL</span>
+            <span class="exp-tag tag-blue">Analytics</span>
+            <span class="exp-tag tag-orange">KPI Tracking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card col-red observe-me">
+        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80&auto=format&fit=crop" style="width:100%;height:160px;object-fit:cover;display:block;" alt="Neonatal Care" />
+        <div style="padding:20px 24px 24px;">
+          <div class="project-title">👶 Smart Neonatal Incubator</div>
+          <div class="project-company">Big Foundation, BMSCE · 2024–25</div>
+          <div class="project-desc">Patent-filed system integrating automated sensing, closed-loop control & real-time monitoring for neonatal ICUs. Built with dual-core architecture for reliability.</div>
+          <div class="project-outcome">✨ Patent filed 2025 · 30% resource utilisation improvement</div>
+          <div style="margin-top:12px;">
+            <span class="exp-tag tag-red">Patent</span>
+            <span class="exp-tag tag-green">IoT</span>
+            <span class="exp-tag tag-blue">Healthtech</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card col-purple observe-me">
+        <img src="https://images.unsplash.com/photo-1510017803434-a899398421b3?w=600&q=80&auto=format&fit=crop" style="width:100%;height:160px;object-fit:cover;display:block;" alt="Wearable Tech" />
+        <div style="padding:20px 24px 24px;">
+          <div class="project-title">⌚ Therapeutic Wearable System</div>
+          <div class="project-company">Joni Remote · 2025</div>
+          <div class="project-desc">Owned the full product development lifecycle for a therapeutic wearable — from requirements definition through clinical validation (50+ test cases) to improved device reliability.</div>
+          <div class="project-outcome">✨ 20% user satisfaction improvement · 25% power reduction</div>
+          <div style="margin-top:12px;">
+            <span class="exp-tag tag-purple">Wearables</span>
+            <span class="exp-tag tag-green">Clinical Validation</span>
+            <span class="exp-tag tag-orange">Agile</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div class="section-head page">
+    <div class="section-label">what I bring to the table</div>
+    <h2 class="section-title underline-blue" id="skillsTitle">Skill Set</h2>
+  </div>
+  <section id="skills" class="page lined">
+    <div class="skills-grid">
+
+      <div class="skill-cluster observe-me">
+        <div class="tape tape-tl"></div>
+        <div class="skill-cluster-icon">🧭</div>
+        <div class="skill-cluster-name">Product Management</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Product Strategy</span>
+          <span class="skill-pill">PRD Writing</span>
+          <span class="skill-pill">Feature Ownership</span>
+          <span class="skill-pill">Roadmapping</span>
+          <span class="skill-pill">Prioritization</span>
+          <span class="skill-pill">Agile / Scrum</span>
+          <span class="skill-pill">GTM Planning</span>
+          <span class="skill-pill">User Research</span>
+          <span class="skill-pill">Usability Testing</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster observe-me">
+        <div class="tape tape-tr"></div>
+        <div class="skill-cluster-icon">📈</div>
+        <div class="skill-cluster-name">Data & Analytics</div>
+        <div class="skill-pills">
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">KPI Definition</span>
+          <span class="skill-pill">Funnel Analysis</span>
+          <span class="skill-pill">Amplitude</span>
+          <span class="skill-pill">Redash</span>
+          <span class="skill-pill">Google Sheets</span>
+          <span class="skill-pill">Dashboard Creation</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster observe-me">
+        <div class="tape tape-tl"></div>
+        <div class="skill-cluster-icon">🔌</div>
+        <div class="skill-cluster-name">APIs & Technical</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Postman</span>
+          <span class="skill-pill">REST APIs</span>
+          <span class="skill-pill">Webhooks</span>
+          <span class="skill-pill">OAuth 2.0</span>
+          <span class="skill-pill">AWS S3</span>
+          <span class="skill-pill">System Workflows</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster observe-me">
+        <div class="tape tape-tr"></div>
+        <div class="skill-cluster-icon">🎨</div>
+        <div class="skill-cluster-name">Design & Prototyping</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Figma</span>
+          <span class="skill-pill">User Journey Mapping</span>
+          <span class="skill-pill">Wireframing</span>
+          <span class="skill-pill">UX Collaboration</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster observe-me">
+        <div class="tape tape-tl"></div>
+        <div class="skill-cluster-icon">🛠️</div>
+        <div class="skill-cluster-name">Tools & Delivery</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Jira</span>
+          <span class="skill-pill">Notion</span>
+          <span class="skill-pill">Confluence</span>
+          <span class="skill-pill">Airtable</span>
+          <span class="skill-pill">Google Workspace</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster observe-me">
+        <div class="tape tape-tr"></div>
+        <div class="skill-cluster-icon">✍️</div>
+        <div class="skill-cluster-name">Communication</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Technical Writing</span>
+          <span class="skill-pill">Product Storytelling</span>
+          <span class="skill-pill">Stakeholder Mgmt</span>
+          <span class="skill-pill">Content Creation</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION + ACHIEVEMENTS -->
+  <div class="section-head page">
+    <div class="section-label">background</div>
+    <h2 class="section-title underline-green">Education & Achievements</h2>
+  </div>
+  <section id="education" class="page lined">
+
+    <div class="edu-card observe-me">
+      <div class="tape tape-tl"></div>
+      <div class="tape tape-tr"></div>
+      <div class="edu-school">🏛 BMS College of Engineering, Bengaluru</div>
+      <div class="edu-degree">B.E. in Medical Electronics</div>
+      <div class="edu-meta">
+        <span>📅 2022 – 2026</span>
+        <span>📍 Bengaluru, Karnataka</span>
+      </div>
+      <div class="edu-cgpa">8.7 / 10</div>
+    </div>
+
+    <div class="achievements-list" style="margin-top:40px;">
+      <div class="achievement observe-me">
+        <div class="achievement-icon">🏆</div>
+        <div class="achievement-text">
+          <strong>Patent Filed (2025)</strong> — Smart neonatal incubator system integrating automated sensing, 
+          closed-loop control &amp; real-time monitoring
+        </div>
+      </div>
+      <div class="achievement observe-me">
+        <div class="achievement-icon">🚀</div>
+        <div class="achievement-text">
+          <strong>Multiple Production Launches</strong> — Shipped production-grade features across healthtech 
+          &amp; B2B platforms, improving clinical workflows &amp; operational efficiency
+        </div>
+      </div>
+      <div class="achievement observe-me">
+        <div class="achievement-icon">🤝</div>
+        <div class="achievement-text">
+          <strong>Cross-Functional Leadership</strong> — Worked directly with clinicians, engineers, 
+          designers &amp; operations on end-to-end product delivery across 3+ companies
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="section-head page">
+    <div class="section-label">drop a line</div>
+    <h2 class="section-title underline-blue">Get In Touch</h2>
+  </div>
+  <section id="contact" class="page">
+    <div class="contact-inner observe-me">
+      <div class="contact-quote">
+        Let's build something that actually matters 🏗️
+      </div>
+      <p style="font-family:'Patrick Hand',cursive;font-size:1rem;line-height:1.7;color:var(--ink2);max-width:500px;">
+        I'm always open to exciting PM opportunities, healthtech projects, or just a good conversation 
+        about products &amp; systems. Reach out — I reply fast ⚡
+      </p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:sanjanawoodi123@gmail.com">✉️ sanjanawoodi123@gmail.com</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/sanjana-woodi/" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.linkedin.com/in/sanjana-woodi/','_blank');return false;">💼 LinkedIn</a>
+        <a class="contact-link" href="tel:+917619127923">📱 +91 76191 27923</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG & VIDEOS -->
+  <div class="section-head page">
+    <div class="section-label">thoughts & builds</div>
+    <h2 class="section-title underline-blue">Blog & Product Videos</h2>
+  </div>
+  <section id="blog" class="page lined">
+    <div class="blog-controls">
+      <button class="blog-filter-btn active" onclick="filterBlog('all', this)">✨ All</button>
+      <button class="blog-filter-btn" onclick="filterBlog('blog', this)">📝 Articles</button>
+      <button class="blog-filter-btn" onclick="filterBlog('video', this)">🎬 Videos</button>
+      <button class="blog-filter-btn" onclick="filterBlog('case-study', this)">📋 Case Studies</button>
+      <button class="blog-filter-btn" style="margin-left:auto;background:var(--ink);color:var(--paper);border-color:var(--ink);" onclick="openAdminPanel(event)">+ Add New Post</button>
+    </div>
+    <div class="blog-grid" id="blogGrid">
+      <!-- populated by JS -->
+    </div>
+  </section>
+
+  <!-- BLOG READ MODAL -->
+  <div class="blog-modal-overlay" id="blogModalOverlay" onclick="closeBlogModal(event)">
+    <div class="blog-modal" id="blogModal">
+      <div class="blog-modal-header">
+        <button class="blog-modal-close" onclick="closeBlogModalBtn()">✕</button>
+        <div class="blog-modal-type" id="modalType"></div>
+        <div class="blog-modal-title" id="modalTitle"></div>
+        <div class="blog-modal-meta" id="modalMeta"></div>
+      </div>
+      <div class="blog-modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-overlay" id="adminOverlay" onclick="closeAdminPanel(event)">
+    <div class="admin-panel" id="adminPanel">
+      <button class="admin-close" onclick="closeAdminPanelBtn()">✕</button>
+      <h3>✏️ Add New Post</h3>
+
+      <div class="admin-type-tabs">
+        <button class="admin-type-tab active" onclick="setPostType('blog', this)">📝 Blog</button>
+        <button class="admin-type-tab" onclick="setPostType('video', this)">🎬 Video</button>
+        <button class="admin-type-tab" onclick="setPostType('case-study', this)">📋 Case Study</button>
+      </div>
+
+      <div class="admin-field">
+        <label>Title *</label>
+        <input type="text" id="postTitle" placeholder="e.g. How I shipped a teleconsult feature in 3 weeks" />
+      </div>
+      <div class="admin-field">
+        <label>Short description (shown on card)</label>
+        <input type="text" id="postExcerpt" placeholder="1–2 sentence summary..." />
+      </div>
+      <div class="admin-field" id="videoUrlField" style="display:none;">
+        <label>YouTube / Loom URL</label>
+        <input type="url" id="postVideoUrl" placeholder="https://youtube.com/watch?v=... or https://loom.com/..." />
+        <div class="admin-hint">Paste a YouTube or Loom link. The video will embed automatically.</div>
+      </div>
+      <div class="admin-field" id="imageField">
+        <label>Cover image</label>
+        <input type="file" id="postImage" accept="image/*" onchange="previewImage(this)" />
+        <img id="imgPreview" class="img-preview" />
+        <div class="admin-hint">JPG, PNG, GIF — displayed as card thumbnail</div>
+      </div>
+      <div class="admin-field" id="contentField">
+        <label>Full content (shown when card is opened)</label>
+        <textarea id="postContent" placeholder="Write your full article, case study, notes... supports plain text and line breaks."></textarea>
+      </div>
+      <div class="admin-field">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="postTags" placeholder="e.g. healthtech, PRD, AI, teleconsult" />
+      </div>
+      <button class="admin-submit" onclick="savePost()">📌 Publish Post</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="success-toast" id="toast">✅ Post published!</div>
+
+  <footer>
+    <p>Crafted with ✏️ &amp; ☕ by <span>Sanjana WG</span> · Bengaluru, India · 2026</p>
+    <p style="margin-top:6px;opacity:0.6;font-size:0.8rem;">Product Manager · Medical Electronics · Builder of things that matter</p>
+  </footer>
+
+</div><!-- /notebook -->
+
+<script>
+  // ── Universal scroll helper (works in iframes too)
+  function goTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Generate spiral coils
+  const spiralContainer = document.getElementById('spirals');
+  for(let i = 0; i < 32; i++){
+    const coil = document.createElement('div');
+    coil.className = 'spiral-coil';
+    spiralContainer.appendChild(coil);
+  }
+
+  // ── Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting){
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.observe-me').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 80;
+    observer.observe(el);
+  });
+
+  // Section titles underline animation
+  const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.section-title').forEach(t => titleObserver.observe(t));
+
+  // ── Hero scribble underline trigger
+  const heroUnderlineEl = document.getElementById('heroUnderline');
+  setTimeout(() => {
+    heroUnderlineEl.classList.add('drawn');
+  }, 800);
+
+  // ── Parallax tilt on hero doodles (subtle)
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 15;
+    document.querySelectorAll('.doodle').forEach((d, i) => {
+      const factor = i % 2 === 0 ? 1 : -0.7;
+      d.style.transform = `translate(${x * factor * 0.4}px, ${y * factor * 0.4}px)`;
+    });
+  });
+
+  // ── Exp-card stagger on scroll
+  const expCards = document.querySelectorAll('.exp-card');
+  const expObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), idx * 120);
+      }
+    });
+  }, { threshold: 0.1 });
+  expCards.forEach(c => expObserver.observe(c));
+
+  // ── Project card stagger
+  const projCards = document.querySelectorAll('.project-card');
+  const projObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), idx * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  projCards.forEach(c => projObs.observe(c));
+
+  // ── Skills stagger
+  const skillCards = document.querySelectorAll('.skill-cluster');
+  const skillObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), idx * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  skillCards.forEach(c => skillObs.observe(c));
+
+  // ── Metric cards counter animation
+  const metricCards = document.querySelectorAll('.metric-card');
+  const metricObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), idx * 90);
+      }
+    });
+  }, { threshold: 0.2 });
+  metricCards.forEach(c => metricObs.observe(c));
+
+  // ── Edu + achievement
+  const eduObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), idx * 120);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.edu-card, .achievement').forEach(c => eduObs.observe(c));
+
+  // ── Contact
+  const contactObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.contact-inner').forEach(c => contactObs.observe(c));
+
+  // ── Pencil cursor trail (small ink drops)
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:9999;';
+  document.body.appendChild(canvas);
+  const ctx2 = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  let dots = [];
+  let lastX = 0, lastY = 0;
+  document.addEventListener('mousemove', e => {
+    if(Math.hypot(e.clientX - lastX, e.clientY - lastY) > 12){
+      dots.push({ x: e.clientX, y: e.clientY, life: 1, r: Math.random()*2+1 });
+      lastX = e.clientX; lastY = e.clientY;
+    }
+  });
+  function drawDots(){
+    ctx2.clearRect(0,0,canvas.width,canvas.height);
+    dots = dots.filter(d => d.life > 0);
+    dots.forEach(d => {
+      ctx2.beginPath();
+      ctx2.arc(d.x, d.y, d.r * d.life, 0, Math.PI*2);
+      ctx2.fillStyle = `rgba(26,18,9,${d.life * 0.25})`;
+      ctx2.fill();
+      d.life -= 0.04;
+    });
+    requestAnimationFrame(drawDots);
+  }
+  drawDots();
+
+  // ═══════════════════════════════════════════════
+  // BLOG SYSTEM
+  // ═══════════════════════════════════════════════
+
+  const STORAGE_KEY = 'sanjana_blog_posts_v1';
+  let currentPostType = 'blog';
+  let currentFilter = 'all';
+  let imageBase64 = null;
+
+  // Seed with sample posts on first visit
+  function seedSamplePosts() {
+    const existing = getPosts();
+    if (existing.length > 0) return;
+    const samples = [
+      {
+        id: Date.now() + 1,
+        type: 'blog',
+        title: 'How I shipped a teleconsultation feature in 6 weeks',
+        excerpt: 'From messy clinical workflows to a clean automated pipeline — here\'s the full story.',
+        content: `This is a sample blog post. Replace with your actual content!\n\nThe biggest challenge wasn't the tech — it was talking to the clinicians and understanding what they actually needed (not what they said they needed).\n\nHere's the framework I used:\n1. Shadow the workflow first — never trust the brief\n2. Write the PRD after stakeholder interviews, not before\n3. Define success metrics before you write a single user story\n\nMore details coming soon...`,
+        image: null,
+        videoUrl: null,
+        tags: ['healthtech', 'PRD', 'teleconsult'],
+        date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+      },
+      {
+        id: Date.now() + 2,
+        type: 'case-study',
+        title: 'Reducing manual ops by 80% with AI automation at Joni Remote',
+        excerpt: 'A deep-dive into how I built an AI-powered quotation & lead scoring system from scratch.',
+        content: `Sample case study — replace with your full write-up!\n\nThe problem: The sales team was spending 3+ hours a day copy-pasting data between systems.\n\nThe solution: An automated workflow that:\n→ Pulled lead data from the CRM\n→ Scored leads using a simple ML model\n→ Generated dynamic quotes in seconds\n\nResult: 60–80% reduction in manual operations.`,
+        image: null,
+        videoUrl: null,
+        tags: ['AI', 'automation', 'B2B'],
+        date: new Date(Date.now() - 86400000 * 5).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+      }
+    ];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(samples));
+  }
+
+  function getPosts() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function savePosts(posts) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+  }
+
+  function getYouTubeEmbed(url) {
+    const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+    const loom = url.match(/loom\.com\/share\/([a-zA-Z0-9]+)/);
+    if (loom) return `https://www.loom.com/embed/${loom[1]}`;
+    return null;
+  }
+
+  function typeLabel(type) {
+    return { blog: '📝 Article', video: '🎬 Video', 'case-study': '📋 Case Study' }[type] || type;
+  }
+  function typeClass(type) {
+    return { blog: 'type-blog', video: 'type-video', 'case-study': 'type-case-study' }[type] || '';
+  }
+  function typeEmoji(type) {
+    return { blog: '📝', video: '🎬', 'case-study': '📋' }[type] || '📄';
+  }
+
+  function renderBlog(filter) {
+    currentFilter = filter || currentFilter;
+    const posts = getPosts();
+    const grid = document.getElementById('blogGrid');
+    const filtered = currentFilter === 'all' ? posts : posts.filter(p => p.type === currentFilter);
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="blog-empty"><span>${typeEmoji(currentFilter)}</span>No posts yet — hit "+ Add New Post" to publish your first one!</div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(post => {
+      let thumbHtml = '';
+      if (post.type === 'video' && post.videoUrl) {
+        const embedUrl = getYouTubeEmbed(post.videoUrl);
+        thumbHtml = `<div class="blog-card-video-thumb"><div class="play-overlay">▶</div></div>`;
+      } else if (post.image) {
+        thumbHtml = `<img class="blog-card-thumb" src="${post.image}" alt="${post.title}" />`;
+      } else {
+        thumbHtml = `<div class="blog-card-thumb-placeholder">${typeEmoji(post.type)}</div>`;
+      }
+
+      const tags = (post.tags || []).map(t => `<span class="exp-tag tag-blue" style="margin:3px 2px 0;">${t}</span>`).join('');
+
+      return `
+        <div class="blog-card" onclick="openBlogModal(${post.id})">
+          <button class="blog-card-delete" onclick="deletePost(event, ${post.id})" title="Delete">✕</button>
+          ${thumbHtml}
+          <div class="blog-card-body">
+            <div class="blog-card-type ${typeClass(post.type)}">${typeLabel(post.type)}</div>
+            <div class="blog-card-title">${post.title}</div>
+            <div class="blog-card-excerpt">${post.excerpt || post.content?.substring(0, 120) + '...' || ''}</div>
+            <div class="blog-card-meta">
+              <span>📅 ${post.date}</span>
+              <span>→ read more</span>
+            </div>
+            <div style="margin-top:8px;">${tags}</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    // Animate new cards
+    setTimeout(() => {
+      grid.querySelectorAll('.blog-card').forEach((c, i) => {
+        setTimeout(() => c.classList.add('visible'), i * 80);
+      });
+    }, 50);
+  }
+
+  function filterBlog(type, btn) {
+    document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderBlog(type);
+  }
+
+  function openBlogModal(id) {
+    const post = getPosts().find(p => p.id === id);
+    if (!post) return;
+    document.getElementById('modalType').textContent = typeLabel(post.type);
+    document.getElementById('modalType').className = 'blog-modal-type ' + typeClass(post.type);
+    document.getElementById('modalTitle').textContent = post.title;
+    document.getElementById('modalMeta').textContent = `📅 ${post.date}` + (post.tags?.length ? '  ·  🏷 ' + post.tags.join(', ') : '');
+
+    let bodyHtml = '';
+    if (post.type === 'video' && post.videoUrl) {
+      const embedUrl = getYouTubeEmbed(post.videoUrl);
+      if (embedUrl) {
+        bodyHtml += `<iframe class="blog-modal-video" src="${embedUrl}" allowfullscreen></iframe>`;
+      } else {
+        bodyHtml += `<p style="font-family:'Patrick Hand',cursive;margin-bottom:16px;"><a href="${post.videoUrl}" target="_blank" rel="noopener" style="color:var(--blue);">▶ Watch video →</a></p>`;
+      }
+    } else if (post.image) {
+      bodyHtml += `<img class="blog-modal-img" src="${post.image}" alt="${post.title}" />`;
+    }
+    if (post.content) {
+      bodyHtml += `<div class="blog-modal-content">${post.content}</div>`;
+    }
+    document.getElementById('modalBody').innerHTML = bodyHtml;
+    document.getElementById('blogModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBlogModal(e) {
+    if (e.target === document.getElementById('blogModalOverlay')) closeBlogModalBtn();
+  }
+  function closeBlogModalBtn() {
+    document.getElementById('blogModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function deletePost(e, id) {
+    e.stopPropagation();
+    if (!confirm('Delete this post?')) return;
+    const posts = getPosts().filter(p => p.id !== id);
+    savePosts(posts);
+    renderBlog();
+  }
+
+  // ── ADMIN PANEL
+  function openAdminPanel(e) {
+    e.preventDefault();
+    document.getElementById('adminOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeAdminPanel(e) {
+    if (e.target === document.getElementById('adminOverlay')) closeAdminPanelBtn();
+  }
+  function closeAdminPanelBtn() {
+    document.getElementById('adminOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    resetAdminForm();
+  }
+
+  function setPostType(type, btn) {
+    currentPostType = type;
+    document.querySelectorAll('.admin-type-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('videoUrlField').style.display = type === 'video' ? 'block' : 'none';
+    document.getElementById('imageField').style.display = type === 'video' ? 'none' : 'block';
+    document.getElementById('contentField').style.display = type === 'video' ? 'block' : 'block';
+  }
+
+  function previewImage(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      imageBase64 = e.target.result;
+      const preview = document.getElementById('imgPreview');
+      preview.src = imageBase64;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function savePost() {
+    const title = document.getElementById('postTitle').value.trim();
+    if (!title) { alert('Please add a title!'); return; }
+
+    const post = {
+      id: Date.now(),
+      type: currentPostType,
+      title,
+      excerpt: document.getElementById('postExcerpt').value.trim(),
+      content: document.getElementById('postContent').value.trim(),
+      videoUrl: document.getElementById('postVideoUrl').value.trim() || null,
+      image: imageBase64 || null,
+      tags: document.getElementById('postTags').value.split(',').map(t => t.trim()).filter(Boolean),
+      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+    };
+
+    const posts = [post, ...getPosts()];
+    savePosts(posts);
+    closeAdminPanelBtn();
+    renderBlog('all');
+    // Switch filter to all
+    document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.blog-filter-btn').classList.add('active');
+    showToast('✅ Post published!');
+    // scroll to blog
+    document.getElementById('blog').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetAdminForm() {
+    ['postTitle','postExcerpt','postContent','postVideoUrl','postTags'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('postImage').value = '';
+    document.getElementById('imgPreview').style.display = 'none';
+    imageBase64 = null;
+    currentPostType = 'blog';
+    document.querySelectorAll('.admin-type-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.admin-type-tab')[0].classList.add('active');
+    document.getElementById('videoUrlField').style.display = 'none';
+    document.getElementById('imageField').style.display = 'block';
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // Keyboard close
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeBlogModalBtn();
+      closeAdminPanelBtn();
+    }
+  });
+
+  // Init blog
+  seedSamplePosts();
+  renderBlog();
+</script>
+</body>
+</html>
